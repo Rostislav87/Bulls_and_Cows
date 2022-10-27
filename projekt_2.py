@@ -24,7 +24,7 @@ Let's play a bulls and cows game.
 number = random.sample(range(10), 4)
 if number[0] != 0:
     random_number = str(number[0]) + str(number[1]) + str(number[2]) + str(number[3])
-print(random_number)
+
 # Hráč hádá číslo. 
 game = True
 
@@ -41,6 +41,11 @@ while game:
     elif len(player_number) != 4 or player_number.isdigit() == False:
         print("Your enter is not 4 digit number. Write only number. Enter again.")
 
+    elif player_number[0] == "0":
+        print("Your first number can't be 0.")
+
+    elif len(player_number) != len(set(player_number)):
+        print("You have to input 4 different digits.")    
     
 
     # Program dále vypíše počet bull/ bulls (pokud uživatel uhodne jak číslo, tak jeho umístění), příp. cows/ cows (pokud uživatel uhodne pouze číslo, ale ne jeho umístění). Vrácené ohodnocení musí brát ohled na jednotné a množné číslo ve výstupu. Tedy 1 bull a 2 bulls (stejně pro cow/cows)
