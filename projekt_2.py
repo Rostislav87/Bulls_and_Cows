@@ -10,7 +10,7 @@ import random
 # Uvítání uživatele
 
 
-def uvitej_uzivatele():
+def print_greetings():
     print("""
     Hi there!
     -----------------------------------------------
@@ -22,19 +22,23 @@ def uvitej_uzivatele():
 
 def main():
     game = True
-    hra(game)
+    bulls_and_cows(game)
 
-# Počítačem náhodně vygenerovaná 4 unikátní čísla 
+# Počítačem náhodně vygenerovaná 4 unikátní čísla  
 
 
-def hra(game):
+def generate_number():
     number = random.sample(range(10), 4)
     if number[0] != 0:
-        random_number = str(number[0]) + str(number[1]) + str(number[2]) + str(number[3])
-        print(random_number)
+       return f"{number[0]}{number[1]}{number[2]}{number[3]}"
 
 
-# Uživatel hádá číslo. Program jej upozorní, pokud zadá číslo kratší nebo delší než 4 čísla. Pokud bude obsahovat duplicity, začínat nulou, příp. obsahovat nečíselné znaky 
+# Uživatel hádá číslo. Program jej upozorní, pokud zadá číslo kratší nebo delší než 4 čísla. Pokud bude obsahovat duplicity, začínat nulou, příp. obsahovat nečíselné znaky
+
+
+def bulls_and_cows(game):
+    random_number = generate_number()
+
     while game:
         player_number = input("Enter a number: ")
         print("-----------------------------------------------")
@@ -45,7 +49,9 @@ def hra(game):
         elif len(player_number) != len(set(player_number)):
             print("You have to input 4 different digits.") 
         
-        # Program dále vypíše počet bull/ bulls (pokud uživatel uhodne jak číslo, tak jeho umístění), příp. cows/ cows (pokud uživatel uhodne pouze číslo, ale ne jeho umístění). Vrácené ohodnocení musí brát ohled na jednotné a množné číslo ve výstupu. Tedy 1 bull a 2 bulls (stejně pro cow/cows)
+                   
+    # Program dále vypíše počet bull/ bulls (pokud uživatel uhodne jak číslo, tak jeho umístění), příp. cows/ cows (pokud uživatel uhodne pouze číslo, ale ne jeho umístění). Vrácené ohodnocení musí brát ohled na jednotné a množné číslo ve výstupu. Tedy 1 bull a 2 bulls (stejně pro cow/cows)
+    
         bull = 0
         cow = 0
         for num, num2 in zip(random_number, player_number):
@@ -54,14 +60,13 @@ def hra(game):
                     bull += 1
                 else:
                     cow += 1            
-        print(f"Bulls: {bull} Cows: {cow}")   
-        if bull == 4:
-            game = False
-            print("Congratulations. That's a right number. You won!")
+        print(f"Bulls: {bull} Cows: {cow}\n-----------------------------------------------")   
+    if bull == 4:
+        game = False
+        print("Congratulations. That's a right number. You won!\n-----------------------------------------------")
 
 
-
-uvitej_uzivatele()
+print_greetings()
 main()
 
 
