@@ -7,6 +7,9 @@ discord: Rostislav R.#9305
 ''' 
 import random
 
+random_number = "" 
+number_of_attempts = 0
+
 # Uvítání uživatele
 
 
@@ -18,57 +21,67 @@ def print_greetings():
     Let's play a bulls and cows game.
     -----------------------------------------------
     """)
-
-
-def main():
-    game = True
-    bulls_and_cows(game)
+  
 
 # Počítačem náhodně vygenerovaná 4 unikátní čísla  
 
 
 def generate_number():
+    global random_number
     number = random.sample(range(10), 4)
     if number[0] != 0:
-       return f"{number[0]}{number[1]}{number[2]}{number[3]}"
-
+        for num in number:
+            random_number += str(num)
+    else:
+        generate_number()    
 
 # Uživatel hádá číslo. Program jej upozorní, pokud zadá číslo kratší nebo delší než 4 čísla. Pokud bude obsahovat duplicity, začínat nulou, příp. obsahovat nečíselné znaky
 
 
-def bulls_and_cows(game):
-    random_number = generate_number()
-
-    while game:
-        player_number = input("Enter a number: ")
+def play_game():
+    global number_of_attempts, random_number
+    print(random_number)  
+    while True :
+        player_number = input("Enter a number or 'q' for exit the game: ")
         print("-----------------------------------------------")
-        if len(player_number) != 4 or not player_number.isdigit():
+        if player_number == "q":
+            break
+        elif len(player_number) != 4 or not player_number.isdigit():
             print("Your input is not 4 digit number. Write only number. Enter again.")
+            continue
         elif player_number[0] == "0":
             print("Your first number can't be 0.")
+            continue
         elif len(player_number) != len(set(player_number)):
             print("You have to input 4 different digits.") 
+            continue
+        number_of_attempts += 1
         
-                   
-    # Program dále vypíše počet bull/ bulls (pokud uživatel uhodne jak číslo, tak jeho umístění), příp. cows/ cows (pokud uživatel uhodne pouze číslo, ale ne jeho umístění). Vrácené ohodnocení musí brát ohled na jednotné a množné číslo ve výstupu. Tedy 1 bull a 2 bulls (stejně pro cow/cows)
-    
         bull = 0
-        cow = 0
+        cow = 0 
         for num, num2 in zip(random_number, player_number):
             if num2 in random_number:
                 if num2 == num:
                     bull += 1
                 else:
-                    cow += 1            
-        print(f"Bulls: {bull} Cows: {cow}\n-----------------------------------------------")   
-    if bull == 4:
-        game = False
-        print("Congratulations. That's a right number. You won!\n-----------------------------------------------")
+                    cow += 1
+        if bull > 1:             
+            print(f"Bulls: {bull}")
+        else:
+            print(f"Bull: {bull}")
 
+        if cow > 1:             
+            print(f"Cows: {cow}")
+        else:
+            print(f"Cow: {cow}")
+            
+        if bull == 4:
+            print(f"Congratulations. That's a right number. You needed {number_of_attempts} attempts to win.")
+            break
 
 print_greetings()
-main()
-
-
+generate_number()
+play_game()
+    
     
 
