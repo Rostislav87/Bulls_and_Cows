@@ -10,7 +10,11 @@ import random
 random_number = "" 
 number_of_attempts = 0
 
-# Uvítání uživatele
+
+def main():
+    print_greetings()
+    generate_number()
+    play_game()
 
 
 def print_greetings():
@@ -21,9 +25,6 @@ def print_greetings():
     Let's play a bulls and cows game.
     -----------------------------------------------
     """)
-  
-
-# Počítačem náhodně vygenerovaná 4 unikátní čísla  
 
 
 def generate_number():
@@ -35,13 +36,11 @@ def generate_number():
     else:
         generate_number()    
 
-# Uživatel hádá číslo. Program jej upozorní, pokud zadá číslo kratší nebo delší než 4 čísla. Pokud bude obsahovat duplicity, začínat nulou, příp. obsahovat nečíselné znaky
-
 
 def play_game():
     global number_of_attempts, random_number
-    print(random_number)  
-    while True :
+      
+    while True:
         player_number = input("Enter a number or 'q' for exit the game: ")
         print("-----------------------------------------------")
         if player_number == "q":
@@ -56,7 +55,7 @@ def play_game():
             print("You have to input 4 different digits.") 
             continue
         number_of_attempts += 1
-        
+    
         bull = 0
         cow = 0 
         for num, num2 in zip(random_number, player_number):
@@ -79,9 +78,10 @@ def play_game():
             print(f"Congratulations. That's a right number. You needed {number_of_attempts} attempts to win.")
             break
 
-print_greetings()
-generate_number()
-play_game()
+
+main()
+
+
     
     
 
