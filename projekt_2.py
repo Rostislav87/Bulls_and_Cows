@@ -7,9 +7,6 @@ discord: Rostislav R.#9305
 ''' 
 import random
 
-random_number = "" 
-number_of_attempts = 0
-
 
 def main():
     print_greetings()
@@ -18,31 +15,34 @@ def main():
 
 
 def print_greetings():
-    print("""
-    Hi there!
-    -----------------------------------------------
-    I've generated a random 4 digit number for you.
-    Let's play a bulls and cows game.
-    -----------------------------------------------
-    """)
-
-
+    separator = 50 * "-"
+    print(f"""
+Hi there!
+{separator}
+I've generated a random 4 digit number for you.
+Let's play a bulls and cows game.
+{separator}
+""")
+    
+    
 def generate_number():
-    global random_number
+    random_number = ""
     number = random.sample(range(10), 4)
     if number[0] != 0:
         for num in number:
             random_number += str(num)
-    else:
-        generate_number()    
+    return random_number    
 
 
 def play_game():
-    global number_of_attempts, random_number
-      
+    number_of_attempts = 0
+    random_number = generate_number()
+    separator = 50 * "-"
+    
     while True:
+        print(random_number)
         player_number = input("Enter a number or 'q' for exit the game: ")
-        print("-----------------------------------------------")
+        print(separator)
         if player_number == "q":
             break
         elif len(player_number) != 4 or not player_number.isdigit():
@@ -73,14 +73,18 @@ def play_game():
             print(f"Cows: {cow}")
         else:
             print(f"Cow: {cow}")
-            
+        print(separator)    
+
         if bull == 4:
-            print(f"Congratulations. That's a right number. You needed {number_of_attempts} attempts to win.")
+            print(f"""
+Congratulations. That's a right number.
+You needed {number_of_attempts} attempts to win.
+{separator}
+""")
             break
 
 
 main()
-
 
     
     
