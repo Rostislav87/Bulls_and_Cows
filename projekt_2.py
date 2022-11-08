@@ -6,7 +6,7 @@ email: rosta.rabiec@icloud.com
 discord: Rostislav R.#9305
 ''' 
 import random
-
+import os
 
 def main():
     print_greetings()
@@ -40,7 +40,6 @@ def play_game():
     separator = 50 * "-"
     
     while True:
-        print(random_number)
         player_number = input("Enter a number or 'q' for exit the game: ")
         print(separator)
         if player_number == "q":
