@@ -85,7 +85,7 @@ You needed {number_of_attempts} attempts to win.
             break
 
 
-if __name__ == "__main":
+if __name__ == "__main__":
     main()
 
     
